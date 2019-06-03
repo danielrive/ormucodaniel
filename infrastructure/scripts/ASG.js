@@ -11,14 +11,23 @@ function Create_ASG(parameters) {
 
     let userData = `#!/bin/bash
     
-mkdir -p /home/ubuntu/project
+sudo mkdir -p /home/ubuntu/project >> output.txt
 apt update 
 apt install -y python-pip git 
+<<<<<<< HEAD
 su ubuntu -c "git clone https://github.com/danielrive/ormucodaniel.git /home/ubuntu/project"
 pip install setuptools
 pip install wheel
 pip install ansible
 
+=======
+
+cd /home/ubuntu/project
+git clone https://github.com/danielrive/ormucodaniel.git
+pip install setuptools
+pip install wheel
+pip install ansible
+>>>>>>> c3b6c379e10965af057bbb315cdad1954e2ebe5f
 `;
 
     const Lanch_Config_ASG = new aws.ec2.LaunchConfiguration(`LC-${parameters.Project_Name}`,

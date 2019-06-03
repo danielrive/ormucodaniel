@@ -11,7 +11,7 @@ function CreateALB(parameters) {
     // ALB Creation
 
     // Application Load Balancer Creation 
-    const ALB_Workshop = new aws.elasticloadbalancingv2.LoadBalancer(`ALB-ormuco-${parameters.Project_Name}`,
+    const ALB_Workshop = new aws.elasticloadbalancingv2.LoadBalancer(`ALB-Woerkshop-${parameters.Project_Name}`,
         {
             enableCrossZoneLoadBalancing: true,
             enableDeletionProtection: false,
@@ -20,9 +20,9 @@ function CreateALB(parameters) {
             internal: false,
             ipAddressType: `ipv4`,
             loadBalancerType: `application`,
-            name: `ALB-ormuco-${parameters.Project_Name}`,
+            name: `ALB-Workshop-${parameters.Project_Name_Name}`,
             tags: {
-                Name: `ALB-ormuco-${parameters.Project_Name}`,
+                Name: `ALB-Woerkshop-${parameters.Project_Name_Name}`,
                 Environment: parameters.Environment
             },
             securityGroups: [parameters.SecurityGroupALB],
@@ -59,7 +59,7 @@ function CreateALB(parameters) {
 
 
     ALBListener443 = new aws.elasticloadbalancingv2.Listener(`${parameters.Project_Name}-Listener-HTTPS`, {
-        certificateArn: "arn:aws:acm:us-east-2:017333715993:certificate/2aa6624b-0328-4a00-88e9-c2ab9f8b51fe",
+        certificateArn: "arn:aws:acm:us-east-1:814847886138:certificate/76839a2d-8104-4e5d-a6c8-0a3994c07c17",
         defaultActions: [{
             fixedResponse: {
                 contentType: "text/plain",
@@ -125,7 +125,7 @@ function create_target(parameters_tg) {
         }],
         conditions: [{
             field: `host-header`,
-            values: `ormuco.quantrinosoft.com`
+            values: `*.com`
 
         }],
         listenerArn: ALBListener443.arn,
