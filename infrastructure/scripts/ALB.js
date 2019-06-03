@@ -61,12 +61,8 @@ function CreateALB(parameters) {
     ALBListener443 = new aws.elasticloadbalancingv2.Listener(`${parameters.Project_Name}-Listener-HTTPS`, {
         certificateArn: "arn:aws:acm:us-east-1:814847886138:certificate/76839a2d-8104-4e5d-a6c8-0a3994c07c17",
         defaultActions: [{
-            fixedResponse: {
-                contentType: "text/plain",
-                messageBody: "Load Balancer Error",
-                statusCode: "404",
-            },
-            type: "fixed-response",
+            targetGroupArn: TargetGroup.arn,
+            type: `forward`
         }],
         loadBalancerArn: ALB_Workshop.arn,
         port: 443,
@@ -118,6 +114,7 @@ function create_target(parameters_tg) {
     );
 
     // Create Rule in Listener ALB
+    /*
     const ALBListenerRule = new aws.elasticloadbalancingv2.ListenerRule(`Rule-${parameters_tg.Project_Name}`, {
         actions: [{
             targetGroupArn: TargetGroup.arn,
@@ -131,6 +128,7 @@ function create_target(parameters_tg) {
         listenerArn: ALBListener443.arn,
         priority: 1
     });
+    */
 
     const Information_Target = {
         ARN_TG: TargetGroup.arn,
