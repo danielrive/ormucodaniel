@@ -1,0 +1,4 @@
+ - name: install apache 
+    apt:
+       name: httpd
+
