@@ -115,7 +115,7 @@ function CreateGlobalResources(GlobalParameters) {
         TargetGroup: TargetGroup.ARN_TG,
         KeyName: "daniel",
         SGInstances: ASGInstances,
-        AMI: `ami-0e7589a8422e3270f`,
+        AMI: `ami-0c55b159cbfafe1f0`,
         max_instances: 1,
         min_instances: 1,
         InstancesType: GlobalParameters.InstanceType
