@@ -53,9 +53,6 @@ function public_networking(parameters) {
                 },
                 availabilityZone: availabilityZones[i]
 
-            },
-            {
-                dependsOn: [VPC_Workshop]
             }
         );
     }
@@ -158,13 +155,6 @@ function public_networking(parameters) {
                 tags: {
                     Name: RT_Asso_pub
                 }
-            },
-            {
-                dependsOn: [
-                    VPC_Workshop,
-                    NAT_Workshop,
-                    Public_Subnets[i],
-                ]
             }
         );
     }

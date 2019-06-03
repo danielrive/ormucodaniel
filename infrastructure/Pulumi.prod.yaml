@@ -1,10 +1,10 @@
 config:
-  aws:region: us-east-1
+  aws:region: us-east-2
   pulumi:template: aws-javascript
-  workshop-devops:Project_Name: workshop-devops
-  workshop-devops:Instance_Type: t2.nano
+  workshop-devops:Project_Name: ormuco-test
+  workshop-devops:Instance_Type: t2.micro
   workshop-devops:Environment: Production
-  workshop-devops:IPs_Allowed: '190.24.42.128/32,191.95.52.226/32'
+  workshop-devops:IPs_Allowed: '0.0.0.0/0'
   workshop-devops:Denny_IPs: '185.107.47.215/32,185.220.101.13/32,54.164.241.32/32,185.156.175.85/32,186.28.2.203/32,197.231.221.211/32,109.201.133.100/32,51.15.86.162/32'
 
 

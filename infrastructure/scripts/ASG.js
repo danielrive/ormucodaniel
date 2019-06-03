@@ -52,9 +52,6 @@ su ubuntu -c "cd infrastructure/tecnologia/web-deploy/www ; ansible-playbook -i 
                 }
 
             ]
-        },
-        {
-            dependsOn: [Lanch_Config_ASG]
         }
 
     );

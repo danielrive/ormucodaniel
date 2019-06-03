@@ -23,9 +23,6 @@ function SG_ALB(parameters) {
             toPort: 80,
             type: "ingress",
             securityGroupId: SG_ALB.id
-        },
-        {
-            dependsOn: [SG_ALB]
         }
     );
 
@@ -37,9 +34,6 @@ function SG_ALB(parameters) {
             toPort: 443,
             type: "ingress",
             securityGroupId: SG_ALB.id
-        },
-        {
-            dependsOn: [SG_ALB]
         }
     );
 
@@ -51,9 +45,6 @@ function SG_ALB(parameters) {
             toPort: 65535,
             type: "egress",
             securityGroupId: SG_ALB.id
-        },
-        {
-            dependsOn: [SG_ALB]
         }
     );
     return SG_ALB.id;
@@ -83,9 +74,6 @@ function SG_Instances(parameters) {
             toPort: 22,
             type: "ingress",
             securityGroupId: SG_Instances.id
-        },
-        {
-            dependsOn: [SG_Instances]
         }
     );
 
@@ -97,9 +85,6 @@ function SG_Instances(parameters) {
             toPort: 80,
             type: "ingress",
             securityGroupId: SG_Instances.id
-        },
-        {
-            dependsOn: [SG_Instances]
         }
     );
 
@@ -111,10 +96,6 @@ function SG_Instances(parameters) {
             toPort: 65535,
             type: "egress",
             securityGroupId: SG_Instances.id
-        },
-        {
-            dependsOn: [SG_Instances
-            ]
         }
     );
     return SG_Instances.id;
