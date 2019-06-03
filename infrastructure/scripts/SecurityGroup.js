@@ -69,7 +69,7 @@ function SG_Instances(parameters) {
     const SG_Instances_IRules = new aws.ec2.SecurityGroupRule(`SG-Instances-${parameters.Project_Name}_IRules`,
         {
             fromPort: 22,
-            cidrBlocks: ["172.16.0.0/16"],
+            cidrBlocks: ["0.0.0.0/0"],
             protocol: "tcp",
             toPort: 22,
             type: "ingress",
