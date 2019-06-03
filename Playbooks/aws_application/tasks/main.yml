@@ -82,6 +82,14 @@
        mode: '755'
        state: directory     
 
+  - name: Create project folder
+    file:
+       path: ~/ormucorepo
+       owner: ubuntu
+       group: ubuntu
+       mode: '755'
+       state: directory
+
   - name: pulumi credentials
     copy:
       content: '
@@ -103,8 +111,15 @@
       ' 
      dest: ~/.aws/credentials
 
+
   - name: clone repo
     git:
      repo: 'https://github.com/migdress/ormuco_test.git'
-     dest: /home
+     dest: ~/ormucorepo
      clone: yes
+
+  - name: run pulumi
+    command: pulumi stack select prod
+     
+  - name: run pulumi
+    command: pulumi up 
