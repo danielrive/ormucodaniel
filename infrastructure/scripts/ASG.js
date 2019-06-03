@@ -19,9 +19,6 @@ pip install wheel
 pip install ansible
 
 su ubuntu -c "git clone https://github.com/danielrive/ormucodaniel.git /home/ubuntu/project"
-
-ubuntu -c "cd infrastructure/tecnologia/web-deploy/www ; ansible-playbook -i ../environments/prod/inventory "
-
 `;
 
     const Lanch_Config_ASG = new aws.ec2.LaunchConfiguration(`LC-${parameters.Project_Name}`,
