@@ -81,6 +81,11 @@ function CreateGlobalResources(GlobalParameters) {
         Port: 80
     }
 
+    /////// ALB Information
+    const ALB_DATA = {
+        ALB_DNS: ALB.alb_dns
+    }
+
     ///////////////////////////////////////
     ////// Target Group Creation
 
@@ -123,5 +128,9 @@ function CreateGlobalResources(GlobalParameters) {
 
    const AutoScaling = Create_AutoScaling.Create_ASG(ParametersAutoScaling);
 
+return ALB_DNS: ALB.alb_dns;
+
 }
 exports.CreateGlobalResources = CreateGlobalResources
+
+

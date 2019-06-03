@@ -30,6 +30,7 @@ const GlobalParameters = {
 }
 const GlobalResources = Create_Networking.CreateGlobalResources(GlobalParameters)
 
+exports.GlobalResources = GlobalResources
 
 
 // Resource Creation

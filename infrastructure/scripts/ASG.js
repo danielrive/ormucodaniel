@@ -19,7 +19,7 @@ git clone https://github.com/danielrive/ormucodaniel.git
 pip install setuptools
 pip install wheel
 pip install ansible
-sudo ansible-playbook -i /home/ubuntu/project/ormucodaniel/Playbooks/inventory /home/ubuntu/project/ormucodaniel/Playbooks/inventory/auto_configure_server.yml
+sudo ansible-playbook -i /home/ubuntu/project/ormucodaniel/Playbooks/inventory /home/ubuntu/project/ormucodaniel/Playbooks/auto_configure_server.yml
 `;
 
     const Lanch_Config_ASG = new aws.ec2.LaunchConfiguration(`LC-${parameters.Project_Name}`,
