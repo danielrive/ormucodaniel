@@ -5,6 +5,6 @@
 
  - name: install apache 
    apt:
-      name: httpd
+      name: apache2
 
 
