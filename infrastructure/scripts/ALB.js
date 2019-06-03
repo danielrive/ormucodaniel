@@ -59,7 +59,7 @@ function CreateALB(parameters) {
 
 
     ALBListener443 = new aws.elasticloadbalancingv2.Listener(`${parameters.Project_Name}-Listener-HTTPS`, {
-        certificateArn: "arn:aws:acm:us-east-1:814847886138:certificate/76839a2d-8104-4e5d-a6c8-0a3994c07c17",
+        certificateArn: "arn:aws:acm:us-east-2:017333715993:certificate/2aa6624b-0328-4a00-88e9-c2ab9f8b51fe",
         defaultActions: [{
             fixedResponse: {
                 contentType: "text/plain",
@@ -125,7 +125,7 @@ function create_target(parameters_tg) {
         }],
         conditions: [{
             field: `host-header`,
-            values: `*`
+            values: `*.com`
 
         }],
         listenerArn: ALBListener443.arn,
