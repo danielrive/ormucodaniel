@@ -1,0 +1,26 @@
+---
+##########
+### Resources values  already created
+
+## AWS Credentials
+aws_access_key: 
+aws_secret_key: 
+
+# Instance Type
+Instance_Type: "t2.micro"
+
+# Region Identifier
+region: "us-east-2"
+
+# Subnet Identifier
+subnet_id: "subnet-0c6acce8aa1657e36"
+
+# Security Group Identifier 
+securitygroup_id: "sg-0e64f1113bb2ec3b4"
+
+# KeyPair Name 
+keyname: "daniel"
+
+# AMI ID
+AMI_ID: "ami-0e7589a8422e3270f"
+

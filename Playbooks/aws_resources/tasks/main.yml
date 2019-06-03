@@ -1,0 +1,43 @@
+---
+# Create AWS EC2 Instance
+
+ - name: Create EC2 Instance
+   ec2:
+       image: "{{AMI_ID}}" 
+       wait: yes
+       instance_type: "{{ Instance_Type }}"
+       region: "{{ region }}"
+       group_id: "{{ securitygroup_id }}"
+       vpc_subnet_id: "{{ subnet_id }}"
+       key_name: "{{ keyname }}"
+       count_tag: 
+           Name: ManagementNode
+       exact_count: 1
+       aws_access_key: "{{ aws_access_key }}"
+       aws_secret_key: "{{ aws_secret_key }}"
+   register: management_instance
+
+ - debug:
+     var: management_instance
+
+
+ - name: Wait for ssh to come up
+   wait_for: host={{item.public_ip}} port=22 delay=60 timeout=320 state=started
+   loop: "{{management_instance.instances}}"
+
+ - name: Append new host line to hosts file
+   lineinfile:
+       path: inventory
+       regexp: 'replace'
+       line: "ec2 ansible_host={{item.public_ip}} ansible_ssh_user=ubuntu ansible_ssh_private_key_file= keys/daniel.pem ansible_python_interpreter=/usr/bin/python3"
+   loop: "{{management_instance.instances}}"
+
+ - name: Add created instance to host group
+   add_host:
+      name: "{{ item.public_ip }}"
+      groups: "ec2"
+      ansible_ssh_user: ubuntu
+      ansible_ssh_private_key_file: "keys/daniel.pem"
+      ansible_python_interpreter: "/usr/bin/python3"
+   loop: "{{management_instance.instances}}"
+   register: added_hosts

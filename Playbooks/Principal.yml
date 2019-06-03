@@ -1,0 +1,16 @@
+######
+### This playbook will create all resources
+###  ansible-playbook -i inventory principal.yml
+
+- hosts: localhost
+  gather_facts: false
+  become: no
+  roles:
+    - aws_resources
+     
+- hosts: ec2
+  gather_facts: false
+  become: no
+  roles:
+     - aws_application
+

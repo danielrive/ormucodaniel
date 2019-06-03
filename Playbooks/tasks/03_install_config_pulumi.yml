@@ -1,0 +1,73 @@
+## This playbook can be used to install Pulumi, you need to have node.js installed into your PC
+#
+#  
+
+- hosts: ec2
+  gather_facts: false
+  remote_user: ubuntu
+  vars_files:
+   - secrets.yml
+
+  tasks:
+
+  - name: create folder
+    file: 
+     path: ~/.pulumi_files
+     state: directory
+
+  - name: download pulumi
+    get_url: 
+      url:  "https://get.pulumi.com/releases/sdk/pulumi-v0.17.10
+-linux-x64.tar.gz"
+      dest: "~/.pulumi_files/pulumi-v0.17.10.tar.gz"
+
+  - name: extract files
+    unarchive:
+      src:  "~/.pulumi_files/pulumi-v0.17.10.tar.gz"
+      dest: "~/.pulumi_files"
+      remote_src: yes
+
+  - name: copy executables
+    command: sudo cp ~/.pulumi_files/pulumi/{{item}} /usr/bin/{{item}}
+    with_items:
+      - pulumi
+      - pulumi-language-go
+      - pulumi-language-nodejs
+      - pulumi-language-python
+
+  - name: Create Pulumi Folder
+    file:
+       path: ~/.pulumi
+       owner: ubuntu
+       group: ubuntu
+       mode: '755'
+       state: directory
+
+  - name: Create AWS folder
+    file:
+       path: ~/.aws
+       owner: ubuntu
+       group: ubuntu
+       mode: '755'
+       state: directory     
+
+  - name: pulumi credentials
+    copy:
+      content: '
+        { 
+          "current": "https://api.pulumi.com",
+          "accessTokens": 
+              { "https://api.pulumi.com": "{{Pulumi_token}}"
+              }
+         }
+        '
+      dest: ~/.pulumi/credentials.json
+         
+  - name: Set AWS Credentials
+    copy: 
+     content: '
+        [default]\\n
+        aws_access_key_id={{Access_Key}}\\n
+        aws_secret_access_key={{Secret_Key}}
+      ' 
+     dest: ~/.aws/credentials

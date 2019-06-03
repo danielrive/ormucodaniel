@@ -1,0 +1,5 @@
+user: daniel  ## please put here the user with you will run the comands
+packages:
+        - openssh-server
+        - git
+

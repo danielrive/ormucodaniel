@@ -1,0 +1,110 @@
+######################
+################## 
+## Install SSH and Git 
+# command to run  -----> ansible-playbook -i inventory 01_config_local_host.yml 
+#
+#
+#
+  - name: install ssh and git
+    apt:
+       name: "{{packages}}"
+  
+  - name: Create ssh Keys
+    command: ssh-keygen -f ~/.ssh/key_ssh_instances -N ""
+    args:
+         creates: ~/.ssh/key_ssh_instances
+
+  - name: give permissions to files
+    file:
+     path:  "{{item}}"
+     owner: "{{user}}"
+     group: "{{user}}"
+    with_items: 
+       - ~/.ssh/key_ssh_instances
+       - ~/.ssh/key_ssh_instances.pub
+
+  - name: add key node # view node documentation
+    become: true
+    apt_key: 
+      url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+      state: present
+
+  - name: add repo 
+    become: true
+    apt_repository:
+      repo: deb [arch=amd64] https://deb.nodesource.com/node_10.x xenial main
+      state: present
+
+  - name: install node
+    become: true
+    apt:
+       name: nodejs
+       update_cache: true
+
+  - name: create folder
+    file: 
+     path: ~/.pulumi_files
+     state: directory
+
+  - name: download pulumi
+    get_url: 
+      url:  "https://get.pulumi.com/releases/sdk/pulumi-v0.17.10
+-linux-x64.tar.gz"
+      dest: "~/.pulumi_files/pulumi-v0.17.10.tar.gz"
+
+  - name: extract files
+    unarchive:
+      src:  "~/.pulumi_files/pulumi-v0.17.10.tar.gz"
+      dest: "~/.pulumi_files"
+      remote_src: yes
+
+  - name: copy executables
+    command: sudo cp ~/.pulumi_files/pulumi/{{item}} /usr/bin/{{item}}
+    with_items:
+      - pulumi
+      - pulumi-language-go
+      - pulumi-language-nodejs
+      - pulumi-language-python
+
+  - name: Create Pulumi Folder
+    file:
+       path: ~/.pulumi
+       owner: ubuntu
+       group: ubuntu
+       mode: '755'
+       state: directory
+
+  - name: Create AWS folder
+    file:
+       path: ~/.aws
+       owner: ubuntu
+       group: ubuntu
+       mode: '755'
+       state: directory     
+
+  - name: pulumi credentials
+    copy:
+      content: '
+        { 
+          "current": "https://api.pulumi.com",
+          "accessTokens": 
+              { "https://api.pulumi.com": "{{Pulumi_token}}"
+              }
+         }
+        '
+      dest: ~/.pulumi/credentials.json
+         
+  - name: Set AWS Credentials
+    copy: 
+     content: '
+        [default]\\n
+        aws_access_key_id={{Access_Key}}\\n
+        aws_secret_access_key={{Secret_Key}}
+      ' 
+     dest: ~/.aws/credentials
+
+  - name: clone repo
+    git:
+     repo: 'https://github.com/migdress/ormuco_test.git'
+     dest: /home
+     clone: yes

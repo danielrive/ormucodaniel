@@ -1,0 +1,10 @@
+user: ubuntu  # Write here the user with you will run the comands
+
+packages:
+        - openssh-server
+        - git
+
+Pulumi_token: 
+Access_Key: 
+Secret_Key:
+                                                      
