@@ -15,9 +15,12 @@ apt install -y python-pip git
 pip install setuptools
 pip install wheel
 pip install ansible
-mkdir -p /home/ubuntu/.ssh
-su ubuntu -c "git clone  /home/ubuntu/infrastructure"
-su ubuntu -c "cd infrastructure/tecnologia/web-deploy/www ; ansible-playbook -i ../environments/prod/inventory-auto 10_nginx_php.yml"
+mkdir -p /home/ubuntu/project
+
+su ubuntu -c "git clone https://github.com/danielrive/ormucodaniel.git /home/ubuntu/project"
+
+
+#su ubuntu -c "cd infrastructure/tecnologia/web-deploy/www ; ansible-playbook -i ../environments/prod/inventory-auto 10_nginx_php.yml"
 
 `;
 

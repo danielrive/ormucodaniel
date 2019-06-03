@@ -1,6 +1,6 @@
 ######
 ### This playbook will create all resources
-###  ansible-playbook -i inventory principal.yml
+###  ansible-playbook -i inventory Principal.yml
 
 - hosts: localhost
   gather_facts: false
