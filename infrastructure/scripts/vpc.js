@@ -48,6 +48,7 @@ function public_networking(parameters) {
             {
                 cidrBlock: CIDR_Block,
                 vpcId: VPC_Workshop.id,
+                mapPublicIpOnLaunch: true,
                 tags: {
                     Name: Name_Sub
                 },
