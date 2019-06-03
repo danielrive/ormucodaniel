@@ -128,7 +128,7 @@ function CreateGlobalResources(GlobalParameters) {
 
    const AutoScaling = Create_AutoScaling.Create_ASG(ParametersAutoScaling);
 
-return ALB_DNS: ALB.alb_dns;
+return ALB.alb_dns;
 
 }
 exports.CreateGlobalResources = CreateGlobalResources
