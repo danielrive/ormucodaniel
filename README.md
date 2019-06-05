@@ -8,11 +8,16 @@ Pulumi needs a machine to run the scripts to deploy the infrastructure, in this 
 
 The management node will have the responsability to deploy the scripts made in Pulumi with the necessary configuration to run the application. This node run pulumi commands to deploy the following resources:
 
-**-** VPC
+**-** VPC 
+
 **-** Internet Gateway
+
 **-** Public Subnets and Route Tables
+
 **-** ACLS
+
 **-** Application Load Balancer with listener with https
+
 **-** Auto Scaling Group with EC2 instances
 
 
