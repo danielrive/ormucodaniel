@@ -1,6 +1,32 @@
 ---
 # Create AWS EC2 Instance
 
+ - name: Create a new ec2 key pair
+   ec2_key:
+       aws_access_key: "{{ aws_access_key }}"
+       aws_secret_key: "{{ aws_secret_key }}"
+       name: "{{ key_name }}"
+       region: "{{ region }}"
+   register: keypair
+ 
+ - debug:
+     var: keypair
+
+ - name: create folder
+   file:
+    path: "{{ path_key }}"
+    state: directory
+ 
+
+ - name: Copy ec2 private key in local folder
+   copy: content="{{ keypair.key.private_key }}" dest={{ path_key }}{{ key_name }}
+   when: keypair.changed == true
+
+ - name: Change permissins private key 
+   file:
+       path: "{{ path_key }}{{ key_name }}"
+       mode: "0400"
+
  - name: Create EC2 Instance
    ec2:
        image: "{{AMI_ID}}" 
@@ -9,16 +35,19 @@
        region: "{{ region }}"
        group_id: "{{ securitygroup_id }}"
        vpc_subnet_id: "{{ subnet_id }}"
-       key_name: "{{ keyname }}"
+       key_name: "{{ keypair.key.name }}"
+       instance_tags:
+           Name: "{{ ec2_Name }}"
        count_tag: 
-           Name: ManagementNode
+           Name: "{{ ec2_Name }}"
        exact_count: 1
        aws_access_key: "{{ aws_access_key }}"
        aws_secret_key: "{{ aws_secret_key }}"
    register: management_instance
 
  - debug:
-     var: management_instance
+     var: "{{ item.public_ip }}"
+   loop: "{{management_instance.instances}}"
 
 
  - name: Wait for ssh to come up
@@ -27,17 +56,31 @@
 
  - name: Append new host line to hosts file
    lineinfile:
-       path: inventory
-       regexp: 'replace'
-       line: "ec2 ansible_host={{item.public_ip}} ansible_ssh_user=ubuntu ansible_ssh_private_key_file= keys/daniel.pem ansible_python_interpreter=/usr/bin/python3"
+       path: vars_to_destroy.yml
+       regexp: 'management_node'
+       line: "instance_id: {{item.id}}"
    loop: "{{management_instance.instances}}"
 
+
+ - name: Append new host line to hosts file
+   lineinfile:
+       path: inventory
+       regexp: 'replace'
+       line: "ec2 ansible_host={{item.public_ip}} ansible_ssh_user=ubuntu ansible_ssh_private_key_file=Private_key/ormuco_daniel ansible_python_interpreter=/usr/bin/python3"
+   loop: "{{management_instance.instances}}"
+
+
+ - name: Copy Public IP Node Management into folder
+   copy: content="{{ item.public_ip }}" dest=./Outputs/Public_IP_Node_Management
+   loop: "{{management_instance.instances}}"
+
+   
  - name: Add created instance to host group
    add_host:
       name: "{{ item.public_ip }}"
       groups: "ec2"
       ansible_ssh_user: ubuntu
-      ansible_ssh_private_key_file: "keys/daniel.pem"
+      ansible_ssh_private_key_file: "Private_key/ormuco_daniel"
       ansible_python_interpreter: "/usr/bin/python3"
    loop: "{{management_instance.instances}}"
    register: added_hosts

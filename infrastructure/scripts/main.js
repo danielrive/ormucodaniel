@@ -118,7 +118,7 @@ function CreateGlobalResources(GlobalParameters) {
         Project_Name: GlobalParameters.Project_Name,
         PrivateSubnets: PublicNetworking.Public_Subnets,
         TargetGroup: TargetGroup.ARN_TG,
-        KeyName: "daniel",
+        KeyName: "ormuco_daniel",
         SGInstances: ASGInstances,
         AMI: `ami-0c55b159cbfafe1f0`,
         max_instances: 1,
