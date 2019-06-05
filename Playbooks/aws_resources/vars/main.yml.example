@@ -2,6 +2,9 @@
 aws_access_key: "PASTE HERE YOUR AWS ACCESS KEY"
 aws_secret_key: "PASTE HERE YOUR AWS SECRET KEY"
 
+# Name for the management node
+ec2_Name: "ManagementNode"
+
 # Instance Type
 Instance_Type: "t2.micro"
 

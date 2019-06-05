@@ -54,10 +54,10 @@
    wait_for: host={{item.public_ip}} port=22 delay=60 timeout=320 state=started
    loop: "{{management_instance.instances}}"
 
- - name: Append new host line to hosts file
+ - name: Save the Instance ID 
    lineinfile:
        path: vars_to_destroy.yml
-       regexp: 'management_node'
+       regexp: 'instance_id'
        line: "instance_id: {{item.id}}"
    loop: "{{management_instance.instances}}"
 
