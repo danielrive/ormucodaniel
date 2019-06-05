@@ -63,7 +63,7 @@ The steps to run the project are:
       
    * run the following command:
    
-           cp aws_resources/vars/main.yml.example aws_resources/vars/main.yml
+           cp aws_application/vars/main.yml.example aws_application/vars/main.yml
       
       In the new file copied(main.yml) please paste the secret key ,access key and pulumi token sent to your email.     
  
