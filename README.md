@@ -45,7 +45,6 @@ To run this project you must have the following:
   
  The Pulumi and AWS account are provided by the author
  
- 
 
 The steps to run the project are:
 
@@ -53,7 +52,11 @@ The steps to run the project are:
       
            git clone https://github.com/danielrive/ormucodaniel.git
     
-**2)modify files**: Paste the credentials sent to your email( AWS credentials and Pulumi token)
+**2)modify files**:  Paste the credentials sent to your email( AWS credentials and Pulumi token)
+
+   * Run the following command:
+           
+           cd ormucodaniel/Playbooks
  
    * Run the following command:
    
@@ -80,8 +83,24 @@ The steps to run the project are:
   **The DNS of application is the value of GlobalResources variable**, copy and paste this DNS in your browser
 
 
-**Access to the instances**
+Access to the instances
 =================================
 
 If you want to access to the management node you need to use the key pair created and access by ssh using the public IP that the application store in the file Public_IP_Node_Management, this file is created when you run the playbook Principal.yml
+
+Remove Resources
+=================================
+
+To delete the resources created in AWS through the scripts, please run de following command:
+     
+            ansible-playbook -i inventory Destroy_Infrastucture_01.yml
+            
+This command will delete the resources create by pulumi using "pulumi destroy" and the EC2 management node created by Ansible Playbook
            
+
+Author Information
+=========================
+
+   **Email:** danielrivera846@gmail.com
+  
+   **Linkedin:** https://www.linkedin.com/in/danielrive/
