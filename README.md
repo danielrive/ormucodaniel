@@ -30,4 +30,54 @@ The project is structured in two folders:
          * **aws_resources role**:This role has the responsibility to deploy the management node(EC2 instance) that will run pulumi to deploy the infrastructure. The AWS resources like VPC and subnets already exist in my AWS account, but also can be deployed with Ansible but to make more fastly the deploy, I specified the resources already created.
          * **aws_application role**: This role has the responsibility to configure the management node(EC2 instance) created by aws_resources role, the playbook installs node.js, create folders,ssh keys and tokens necessaries to run Pulumi. When Pulumi has been configured, the ansible task run pulumi to deploy the AWS resources.
          * **server_resources role** This role has the responsibility to configure the EC2 instances deployed by auto-scaling group, configure the instance and run the application. if a new instance is launched by an auto-scaling event will be auto-configured by Ansible and Cloud-Init.
+         
+usage
+================== 
+**Requeriments**
+
+To run this project you must have the following:
+
+   **-** Ansible
+  
+   **-** python and boto library
+  
+   **-** git
+  
+ The Pulumi and AWS account are provided by the author
+
+The steps to run the project are:
+
+**1)clone the repo**: clone the GitHub repository
+      
+           git clone https://github.com/danielrive/ormucodaniel.git
+    
+**2)modify files**: Paste the credentials sent to your email( aws credentials and pulumi token)
+ 
+   * run the following command:
+   
+           cp /aws_resources/vars/main.yml.example /aws_resources/vars/main.yml
+       
+       In the new file copied(main.yml) please paste the secret and access key sent to your email. 
+      
+   * run the following command:
+   
+           cp /aws_resources/vars/main.yml.example /aws_resources/vars/main.yml
+      
+      In the new file copied(main.yml) please paste the secret key ,access key and pulumi token sent to your email.     
+ 
+**3) Run Ansible Playbook**: run the plybook to create all resources
+    
+           ansible-playbook -i inventory Principal.yml
+       
+**4) Watch outputs:** When you run the Playbook, you must watch the output of commands because when the execute has been completed, you will can see a line like:
+        
+        "Outputs:",
+                 "    GlobalResources: \"ALB-undefined-1306135976.us-east-2.elb.amazonaws.com\"",
+                "",
+                
+  **The dns of application is the value of GlobalResources variable**, copy and paste this DNS in your browser
+
+access to the instances
+
+================== 
            
