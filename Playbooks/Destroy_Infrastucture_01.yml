@@ -1,0 +1,37 @@
+ - hosts: ec2
+   gather_facts: false
+   become: no
+
+   tasks: 
+    - name: Delete resources created using pulumi
+      command: pulumi destroy
+      args:
+        chdir: ~/ormucorepo/infrastructure
+      register: delete_pulumi_resources
+
+    - debug:
+       var: delete_pulumi_resources
+       
+ - name: Terminate management node
+   hosts: localhost
+   vars_files:
+       - vars_to_destroy.yml
+       - ./aws_resources/vars/main.yml    
+   tasks:
+    - name: Terminate instances that were previously launched
+      ec2:
+        state: 'absent'
+        region: "us-east-2"
+        instance_ids: "{{ instance_id }}"
+        aws_access_key: "{{ aws_access_key }}"
+        aws_secret_key: "{{ aws_secret_key }}"
+
+
+   - name: Delete KeyPair
+     - name: remove key pair by name
+       ec2_key:
+          name: "ormuco_daniel"
+          state: absent
+          aws_access_key: "{{ aws_access_key }}"
+          aws_secret_key: "{{ aws_secret_key }}"
+

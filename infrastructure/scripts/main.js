@@ -121,8 +121,8 @@ function CreateGlobalResources(GlobalParameters) {
         KeyName: "ormuco_daniel",
         SGInstances: ASGInstances,
         AMI: `ami-0c55b159cbfafe1f0`,
-        max_instances: 2,
-        min_instances: 2,
+        max_instances: 1,
+        min_instances: 1,
         InstancesType: GlobalParameters.InstanceType
     }
 
