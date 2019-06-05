@@ -136,5 +136,9 @@
     command: pulumi up
     args:
      chdir: ~/ormucorepo/infrastructure
+    register: pulumi_output
+
+  - debug:
+     var: pulumi_output
 
 

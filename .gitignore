@@ -64,4 +64,4 @@ Playbooks/aws_application/vars/main.yml
 Playbooks/aws_resources/vars/main.yml
 Playbooks/keys/daniel.pem
 Playbooks/secrets.yml
-
+Playbooks/Private_key

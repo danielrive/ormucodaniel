@@ -1,13 +1,15 @@
----
-##########
-### Resources values  already created
-
 ## AWS Credentials
-aws_access_key: 
-aws_secret_key: 
+aws_access_key: "PASTE HERE YOUR AWS ACCESS KEY"
+aws_secret_key: "PASTE HERE YOUR AWS SECRET KEY"
 
 # Instance Type
 Instance_Type: "t2.micro"
+
+# Private Key Name
+key_name: "ormuco_daniel"
+
+# path to save private key
+path_key: "./Private_key/"
 
 # Region Identifier
 region: "us-east-2"
@@ -23,4 +25,3 @@ keyname: "daniel"
 
 # AMI ID
 AMI_ID: "ami-0e7589a8422e3270f"
-
