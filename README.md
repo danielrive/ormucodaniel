@@ -1,15 +1,3 @@
-# This project deploy a web application in AWS Cloud through Ansible playbooks and Pulumi.
-==================
-The project is structured in two folders:
-
-* **infrastructure**: This folder contain the JavaScripts files whose responsibility is to create the infrastructure in AWS usign Pulumi,Pulumi is a tool to deploy resource in the cloud using programming languages like Node.js, Python or Go. In this case Pulumi will be using to deploy the infrastructure necesary to support the web application, all configs necessaries to pulumi will be do through Ansible.
-the application use Auto Scaling Groups, when a new machine is deployed, a Ansible playbook is execute in the local host to configure the server to support the application.
-
-Pulumi needs a machine to run the scripts to deploy the infrastructure, in this case i used Ansible to deploy a EC2 instance which will be used like management node, all configuration in this machine is made throught Ansible playbooks.
-
-The management node will have the responsability to deploy the scripts made in Pulumi with the necessary configuration to run the application.
-
-
 # This project deploys a web application in AWS Cloud through Ansible playbooks and Pulumi.
 
 ================== The project is structured in two folders:
