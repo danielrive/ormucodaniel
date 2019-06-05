@@ -71,7 +71,7 @@
 
 
  - name: Copy Public IP Node Management into folder
-   copy: content="{{ item.public_ip }}" dest=./Outputs/Public_IP_Node_Management
+   copy: content="{{ item.public_ip }}" dest=./Public_IP_Node_Management
    loop: "{{management_instance.instances}}"
 
    
