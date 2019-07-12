@@ -1,6 +1,6 @@
 ## AWS Credentials
-aws_access_key: "AKIAQXXXXXXXXXXXXXWA"
-aws_secret_key: "muXbeSnFwersd2da2rdasd878hsadi7DDj5"
+aws_access_key: "AKIAQXXXXX3XXXXXXXXWA"
+aws_secret_key: "muXbeSnFwer3sd2da2rdasd878hsadi7DDj5"
 
 # Name for the management node
 ec2_Name: "ManagementNode"
